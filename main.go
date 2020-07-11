@@ -6,11 +6,12 @@ import (
 
 	"goji.io"
 	"goji.io/pat"
+
+	"main/kokodayo"
 )
 
 func hello(w http.ResponseWriter, r *http.Request) {
-	name := pat.Param(r, "name")
-	fmt.Fprintf(w, "Hello, %s!", name)
+	fmt.Fprint(w, kokodayo.GenHello(pat.Param(r, "name")))
 }
 
 func main() {
