@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+        - image: 'circleci/golang:latest'
+    steps:
+      - checkout
+      - run: sudo apt install -y nodejs npm
+      - run: sudo npm install -g dredd
+      - run: make test

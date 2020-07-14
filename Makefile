@@ -8,5 +8,10 @@ kokodayo.bin : .FORCE
 run : kokodayo.bin
 	./kokodayo.bin
 
-test : 
+test : kokodayo.bin
 	go test -v main/kokodayo
+	dredd
+
+ci :
+	git add .
+	circleci local execute

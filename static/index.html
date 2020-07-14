@@ -1,1 +1,22 @@
-hello, golang!
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <form id="createBoxForm">
+      <input type="text" id="boxNameBox">
+      <input type="submit" value="Create Box">
+    </form>
+    hello
+  </body>
+  <script>
+function CreateBox() {
+  const boxNameBox = document.getElementById("boxNameBox");
+  console.log(boxNameBox.value);
+  return false;
+}
+const form = document.getElementById("createBoxForm");
+form.onsubmit  =CreateBox;
+  </script>
+</html>

@@ -13,6 +13,7 @@ import (
 )
 
 func hello(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	fmt.Fprint(w, kokodayo.GenHello(pat.Param(r, "name")))
 }
 
@@ -22,7 +23,7 @@ const staticPath = "./static"
 
 func main() {
 	mux := goji.NewMux()
-	mux.HandleFunc(pat.Get("/hello/:name"), hello)
+	mux.HandleFunc(pat.Get("/api/hello/:name"), hello)
 	path, err := filepath.Abs(staticPath)
 	if err != nil {
 		log.Fatal(err)

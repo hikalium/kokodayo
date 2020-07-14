@@ -8,5 +8,5 @@ import (
 
 func TestGenHello(t *testing.T) {
 	assert := assert.New(t)
-	assert.Equal(GenHello("hikalium"), "Hello, hikalium")
+	assert.Equal(GenHello("hikalium"), "{\"message\":\"kokodayo hikalium!\"}")
 }
