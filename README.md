@@ -1,3 +1,5 @@
+[![hikalium](https://circleci.com/gh/hikalium/kokodayo.svg?style=svg)](https://circleci.com/gh/hikalium/kokodayo)
+
 # kokodayo
 A simple inventory management tool
 
