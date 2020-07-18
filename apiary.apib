@@ -10,6 +10,17 @@ FORMAT: 1A
 
         {"message": "kokodayo hikalium!"}
 
+# GET /api/items
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          "status": "ok",
+          "items": [
+            {"item_id":1,"image_url":"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+C9QDwADpgGQ/B4OjgAAAABJRU5ErkJggg=="}
+          ]
+        }
+
 # POST /api/items
 
 + Request (application/json)

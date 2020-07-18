@@ -7,6 +7,8 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gin-contrib/static v0.0.0-20191128031702-f81c604d8ac2
 	github.com/gin-gonic/gin v1.6.3
+	github.com/go-sql-driver/mysql v1.5.0
+	github.com/jmoiron/sqlx v1.2.0
 	github.com/kr/text v0.2.0 // indirect
 	github.com/ndyakov/gojison v0.0.0-20170102182822-c6481a917906
 	github.com/ndyakov/whatever v0.0.0-20150328195937-7296a43c0388 // indirect
