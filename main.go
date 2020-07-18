@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"main/kokodayo"
 )
@@ -12,6 +13,7 @@ const staticPath = "./static"
 
 func main() {
 	router := gin.Default()
+	router.Use(static.Serve("/", static.LocalFile("static", false)))
 	router.GET("/api/hello/:id", func(c *gin.Context) {
 		name := c.Param("id")
 		c.JSON(200, kokodayo.GenHello(name))
