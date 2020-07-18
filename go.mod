@@ -5,6 +5,7 @@ go 1.14
 require (
 	github.com/ant0ine/go-json-rest v3.3.2+incompatible
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/gin-gonic/gin v1.6.3
 	github.com/kr/text v0.2.0 // indirect
 	github.com/ndyakov/gojison v0.0.0-20170102182822-c6481a917906
 	github.com/ndyakov/whatever v0.0.0-20150328195937-7296a43c0388 // indirect

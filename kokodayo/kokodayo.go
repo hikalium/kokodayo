@@ -2,12 +2,9 @@ package kokodayo
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 )
 
-type HelloResponse struct {
-	Message string `json:"message"`
-}
-
-func GenHello(name string) HelloResponse {
-	return HelloResponse{Message: fmt.Sprintf("kokodayo %s!", name)}
+func GenHello(name string) gin.H {
+	return gin.H{"message": fmt.Sprintf("kokodayo %s!", name)}
 }

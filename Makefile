@@ -11,6 +11,7 @@ run : kokodayo.bin
 test : kokodayo.bin
 	go test -v main/kokodayo
 	dredd
+	@echo "PASS"
 
 ci :
 	git add .
