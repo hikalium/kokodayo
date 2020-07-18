@@ -4,17 +4,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"path/filepath"
 
-	"goji.io"
-	"goji.io/pat"
+	"github.com/ant0ine/go-json-rest/rest"
 
 	"main/kokodayo"
 )
 
-func hello(w http.ResponseWriter, r *http.Request) {
+func hello(w rest.ResponseWriter, r *rest.Request) {
+	id := r.PathParam("id")
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	fmt.Fprint(w, kokodayo.GenHello(pat.Param(r, "name")))
+	w.WriteJson(kokodayo.GenHello(id))
+	fmt.Println("Hello called!")
 }
 
 const host = "localhost"
@@ -22,14 +22,14 @@ const port = 8080
 const staticPath = "./static"
 
 func main() {
-	mux := goji.NewMux()
-	mux.HandleFunc(pat.Get("/api/hello/:name"), hello)
-	path, err := filepath.Abs(staticPath)
+	api := rest.NewApi()
+	api.Use(rest.DefaultDevStack...)
+	router, err := rest.MakeRouter(
+		rest.Get("/api/hello/:id", hello),
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
-	mux.Handle(pat.Get("/*"), http.FileServer(http.Dir(path)))
-
-	fmt.Printf("Listening %v:%v...\n", host, port)
-	http.ListenAndServe(fmt.Sprintf("%v:%v", host, port), mux)
+	api.SetApp(router)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("%v:%v", host, port), api.MakeHandler()))
 }

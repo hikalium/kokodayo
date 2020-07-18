@@ -4,19 +4,21 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <form id="createBoxForm">
-      <input type="text" id="boxNameBox">
+    <h1>kokodayo</h1>
+    <h2>Add an item</h2>
+    <form id="itemForm">
+      <input type="text" id="itemDescription">
       <input type="submit" value="Create Box">
     </form>
     hello
   </body>
   <script>
-function CreateBox() {
-  const boxNameBox = document.getElementById("boxNameBox");
-  console.log(boxNameBox.value);
+function CreateItem() {
+  const itemDescriptionInput = document.getElementById("itemDescription");
+  console.log(itemDescription.value);
   return false;
 }
-const form = document.getElementById("createBoxForm");
-form.onsubmit  =CreateBox;
+const form = document.getElementById("itemForm");
+form.onsubmit = CreateItem;
   </script>
 </html>
