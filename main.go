@@ -16,9 +16,15 @@ const host = "localhost"
 const port = 8080
 const staticPath = "./static"
 
+type Box struct {
+	BoxId    int    `json:"box_id" db:"box_id"`
+	ImageUrl string `json:"image_url" db:"image_url"`
+}
+
 type Item struct {
-	ItemId     int    `json:"item_id" db:"item_id"`
-	TrainClass string `json:"image_url" db:"image_url"`
+	ItemId   int    `json:"item_id" db:"item_id"`
+	BoxId    int    `json:"box_id" db:"box_id"`
+	ImageUrl string `json:"image_url" db:"image_url"`
 }
 
 type ItemRequest struct {
@@ -99,6 +105,19 @@ func main() {
 		}
 
 		c.JSON(200, gin.H{"status": "ok", "items": itemList})
+	})
+	router.GET("/api/boxes", func(c *gin.Context) {
+		c.Header("Content-Type", "application/json; charset=utf-8")
+		boxList := []Box{}
+		query := "SELECT * FROM boxes"
+		err := dbx.Select(&boxList, query)
+		if err != nil {
+			log.Println("DB Error", err)
+			c.JSON(500, gin.H{"status": "failed to query to DB"})
+			return
+		}
+
+		c.JSON(200, gin.H{"status": "ok", "boxes": boxList})
 	})
 	router.Run(fmt.Sprintf("%v:%v", host, port))
 }
