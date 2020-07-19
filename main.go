@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
+	"html/template"
 	"log"
 	"main/kokodayo"
 	"os"
@@ -17,8 +18,8 @@ const port = 8080
 const staticPath = "./static"
 
 type Box struct {
-	BoxId    int    `json:"box_id" db:"box_id"`
-	ImageUrl string `json:"image_url" db:"image_url"`
+	BoxId    int          `json:"box_id" db:"box_id"`
+	ImageUrl template.URL `json:"image_url" db:"image_url"`
 }
 
 type Item struct {
@@ -78,6 +79,7 @@ func main() {
 
 	// Setup routing
 	router := gin.Default()
+	router.LoadHTMLGlob("templates/*.html")
 	router.Use(static.Serve("/", static.LocalFile("static", false)))
 	router.GET("/api/hello/:id", func(c *gin.Context) {
 		name := c.Param("id")
@@ -118,6 +120,17 @@ func main() {
 		}
 
 		c.JSON(200, gin.H{"status": "ok", "boxes": boxList})
+	})
+	router.GET("/b", func(c *gin.Context) {
+		boxList := []Box{}
+		query := "SELECT * FROM boxes"
+		err := dbx.Select(&boxList, query)
+		if err != nil {
+			log.Println("DB Error", err)
+			c.JSON(500, gin.H{"status": "failed to query to DB"})
+			return
+		}
+		c.HTML(200, "box_list.html", gin.H{"boxes": boxList})
 	})
 	router.Run(fmt.Sprintf("%v:%v", host, port))
 }
