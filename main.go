@@ -63,6 +63,8 @@ func main() {
 		dbPort,
 		dbname,
 	)
+	log.Printf("dbPort = %v", dbPort)
+	log.Printf("dbUser = %v", dbUser)
 
 	dbx := sqlx.MustOpen("mysql", dsn)
 	defer dbx.Close()

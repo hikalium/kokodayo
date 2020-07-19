@@ -6,8 +6,10 @@ kokodayo.bin : .FORCE
 	go build -o $@
 
 run : kokodayo.bin
-	MYSQL_PORT=`docker port kokodayo-mysql 3306/tcp | cut -d ':' -f 2` \
-			   ./kokodayo.bin
+	. ./env.sh && \
+		MYSQL_PORT=$${MYSQL_PORT} \
+		MYSQL_USER=$${MYSQL_USER} \
+		./kokodayo.bin
 
 test : kokodayo.bin
 	./db_init_test.sh

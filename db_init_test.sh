@@ -1,12 +1,13 @@
 #!/bin/bash
-DBNAME=kokodayo_test
+MYSQL_DATABASE=kokodayo_test
+. env.sh
 mysql --defaults-extra-file=mysql_client.conf \
-  -h localhost \
-  -P `docker port kokodayo-mysql 3306/tcp | cut -d ':' -f 2` << EOS
-drop database if exists ${DBNAME};
-create database ${DBNAME};
+  -h ${MYSQL_HOSTNAME} \
+  -P ${MYSQL_PORT} << EOS
+drop database if exists ${MYSQL_DATABASE};
+create database ${MYSQL_DATABASE};
 
-use ${DBNAME}
+use ${MYSQL_DATABASE}
 
 DROP TABLE IF EXISTS items;
 CREATE TABLE items (
