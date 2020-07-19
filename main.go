@@ -13,8 +13,6 @@ import (
 	"strconv"
 )
 
-const host = "localhost"
-const port = 8080
 const staticPath = "./static"
 
 type Box struct {
@@ -132,5 +130,13 @@ func main() {
 		}
 		c.HTML(200, "box_list.html", gin.H{"boxes": boxList})
 	})
-	router.Run(fmt.Sprintf("%v:%v", host, port))
+	wwwPort := os.Getenv("WWW_PORT")
+	if wwwPort == "" {
+		wwwPort = "8080"
+	}
+	_, err = strconv.Atoi(wwwPort)
+	if err != nil {
+		wwwPort = "8080"
+	}
+	router.Run(fmt.Sprintf(":%v", wwwPort))
 }

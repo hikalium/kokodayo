@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
 .boxes-container {
   display: flex;
@@ -10,11 +11,17 @@
 .boxes-cell {
   height: 200px;
   width: 20%;
+  min-width: 300px;
   position: relative;
 }
 img {
   height: 100%;
+  width: 100%;
   object-fit: cover;
+}
+body {
+  padding: 0;
+  margin: 0;
 }
     </style>
   </head>
