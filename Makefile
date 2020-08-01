@@ -24,6 +24,7 @@ run_prod : kokodayo.bin
 		./kokodayo.bin
 
 test : kokodayo.bin
+	-killall kokodayo
 	./db_init_test.sh
 	go test -v main/kokodayo
 	dredd

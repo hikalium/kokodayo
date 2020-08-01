@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+.boxes-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.boxes-cell {
+  height: 200px;
+  width: 20%;
+  min-width: 300px;
+  position: relative;
+}
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+body {
+  padding: 0;
+  margin: 0;
+}
+    </style>
+  </head>
+  <body>
+    <h1>kokodayo</h1>
+    <h2>Box {{.box_id}}</h2>
+    <h3>Add an item</h3>
+    <form id="itemForm">
+      <input type="hidden" id="boxId" value="{{.box_id}}">
+      <input type="file" id="itemImage">
+      <input type="submit" value="Add Item">
+    </form>
+    <h3>Items</h3>
+    <div class='boxes-container'>
+      {{range .items}}
+      <span class="boxes-cell">
+        {{.ItemId}}
+        <img src="{{.ImageUrl}}">
+      </span>
+      {{end}}
+    </div>
+    </ul>
+    <script>
+async function CreateItem() {
+  const itemImageInput = document.getElementById("itemImage");
+  const toDataURL = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+  const imageDataUrl = await toDataURL(itemImageInput.files[0]);
+
+  const jsonStr = JSON.stringify({
+    "box_id": parseInt("{{.box_id}}", 10),
+    "image_url": imageDataUrl
+  });
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/api/items");
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onload = () => {
+    console.log(xhr.status);
+    console.log(xhr.response);
+    if(xhr.status != 200) {
+      console.log("Failed!");
+      return;
+    }
+    console.log("success!");
+  };
+  xhr.onerror = () => {
+    console.log(xhr.status);
+    console.log("error!");
+  };
+  xhr.send(jsonStr);
+}
+const form = document.getElementById("itemForm");
+form.onsubmit = async (e) =>{
+  e.preventDefault();
+  CreateItem();
+};
+    </script>
+  </body>
+</html>
